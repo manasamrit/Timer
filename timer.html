@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>6-Year Countdown Timer</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #000; /* Black background */
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .dates {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .dates span {
+      color: #ff6600; /* Orange highlight */
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      border: 2px solid #ff6600; /* Orange border */
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(255, 102, 0, 0.4);
+      animation: fadeIn 1s ease-in-out;
+      margin-bottom: 2rem;
+    }
+
+    .time-box {
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .time {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ff6600; /* Orange numbers */
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    .label {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: #fff; /* White labels */
+      opacity: 0.9;
+    }
+
+    .footer {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); color: #ffa64d; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="dates">
+    Start Date: <span>15 Sep 2025</span> | End Date: <span>15 Sep 2031</span>
+  </div>
+
+  <div class="container">
+    <div class="time-box">
+      <div class="time" id="days">00</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="hours">00</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="minutes">00</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="seconds">00</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+
+  <div class="footer">All the Best ✨</div>
+
+  <script>
+    // Start date
+    const startDate = new Date("Sep 15, 2025 00:00:00").getTime();
+    // End date = start + 6 years
+    const targetDate = new Date("Sep 15, 2031 00:00:00").getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.querySelector(".container").innerHTML = "<h1 style='color:#ff6600;'>⏳ Countdown Complete!</h1>";
+        return;
+      }
+
+      document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
